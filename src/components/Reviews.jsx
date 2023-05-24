@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -16,7 +16,7 @@ const Reviews = () => {
         console.log(res);
       })
       .catch(error => error());
-  }, []);
+  }, [movieId]);
 
   if (reviews.length === 0) {
     return <p>We dont have any reviews for this movie</p>;
@@ -35,8 +35,5 @@ const Reviews = () => {
     );
   }
 };
-// const Reviews = () => {
-//   return <div>information 2</div>;
-// };
 
 export default Reviews;

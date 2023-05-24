@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Movies = () => {
-  const location = useLocation();
+  // const location = useLocation();
   const [movieName, setMovieName] = useState('');
   const [movies, setMovies] = useState([]);
 

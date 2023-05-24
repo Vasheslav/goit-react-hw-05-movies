@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -15,13 +15,22 @@ const Cast = () => {
         setCast(res.data.cast);
       })
       .catch(error => error());
-  }, []);
+  }, [movieId]);
+
+  const posterBaseUrl = 'https://image.tmdb.org/t/p/';
 
   return (
     <ul>
       {cast.map(item => (
         <li key={item.cast_id}>
-          <img src={item.profile_path} alt="" />
+          {item.profile_path && (
+            <img
+              src={`${posterBaseUrl}w200${item.profile_path}`}
+              alt=""
+              width={90}
+            />
+          )}
+
           <p>{item.name}</p>
           <p>{item.character}</p>
         </li>
