@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Home = () => {
@@ -10,15 +10,22 @@ const Home = () => {
         'https://api.themoviedb.org/3/trending/movie/day?api_key=010a12c35498ee121131bb88bb81731c&language=en-US'
       )
       .then(res => {
-        console.log(res);
+        setListMovie(res.data.results);
+        console.log(res.data.results);
       })
       .catch(error => error());
     console.log();
-  });
+  }, []);
 
   return (
     <main>
-      <h1>Home list</h1>
+      <ul>
+        {listMovie.map(movie => (
+          <li key={movie.id}>
+            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+          </li>
+        ))}
+      </ul>
     </main>
   );
 };
