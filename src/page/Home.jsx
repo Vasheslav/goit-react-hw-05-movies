@@ -11,10 +11,8 @@ const Home = () => {
       )
       .then(res => {
         setListMovie(res.data.results);
-        console.log(res.data.results);
       })
-      .catch(error => error());
-    console.log();
+      .catch(error => console.error(error));
   }, []);
 
   return (

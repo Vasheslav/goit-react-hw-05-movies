@@ -1,6 +1,5 @@
-import { Link, Outlet } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-import { Suspense, useState, useEffect } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Suspense, useState, useEffect, useRef } from 'react';
 import { Loader } from '../components/Loader';
 import axios from 'axios';
 import {
@@ -17,8 +16,8 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const [movieInfo, setMovieInfo] = useState({});
   const [status, setStatus] = useState('idle');
-  // const location = useLocation();
-  // const backLinkHref = location.state?.from ?? '/movies';
+  const location = useLocation();
+  const backLinkRef = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     setStatus('pending');
@@ -29,10 +28,9 @@ const MovieDetails = () => {
       )
       .then(res => {
         setMovieInfo(res.data);
-        console.log(res.data);
         setStatus('resolved');
       })
-      .catch(error => error());
+      .catch(error => console.error(error));
   }, [movieId]);
 
   const posterBaseUrl = 'https://image.tmdb.org/t/p/';
@@ -50,11 +48,14 @@ const MovieDetails = () => {
   if (status === 'resolved') {
     return (
       <main>
-        {/* <div to={backLinkHref}>Back to search</div> */}
+        <Link
+          to={backLinkRef.current}
+          style={{ display: 'block', marginBottom: '10px' }}
+        >
+          Back to search
+        </Link>
         <FlexConteiner>
-          <div>
-            <img src={fullPosterUrl} alt="" />
-          </div>
+          <div>{fullPosterUrl && <img src={fullPosterUrl} alt="" />}</div>
           <div>
             <Title>
               {movieInfo.title} ({movieInfo.release_date?.split('-')[0]})
