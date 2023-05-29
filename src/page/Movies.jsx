@@ -30,9 +30,9 @@ const Movies = () => {
       .then(res => {
         setMovies(res.data.results);
 
-        // if (query !== '' && movieName === '') {
-        //   setMovieName(query);
-        // }
+        if (query !== '' && movieName === '') {
+          setMovieName(query);
+        }
       })
       .catch(error => console.error(error));
   }, [query]);
