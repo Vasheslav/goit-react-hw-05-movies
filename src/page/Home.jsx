@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const Home = () => {
   const [listMovie, setListMovie] = useState([]);
+
   useEffect(() => {
     axios
       .get(
