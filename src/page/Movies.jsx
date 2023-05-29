@@ -35,7 +35,7 @@ const Movies = () => {
         }
       })
       .catch(error => console.error(error));
-  }, [query]);
+  }, [query, movieName]);
 
   const handleSearhValue = e => {
     setMovieName(e.currentTarget.value);
