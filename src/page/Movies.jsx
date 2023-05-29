@@ -29,6 +29,10 @@ const Movies = () => {
       )
       .then(res => {
         setMovies(res.data.results);
+
+        if (query !== '' && movieName === '') {
+          setMovieName(query);
+        }
       })
       .catch(error => console.error(error));
   }, [query]);
@@ -40,7 +44,6 @@ const Movies = () => {
   const handleSubmit = e => {
     e.preventDefault();
     setSearchParams({ query: movieName });
-    setMovieName('');
   };
 
   return (
